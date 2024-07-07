@@ -1,6 +1,7 @@
-const express = require('express');
-
 const mongoose = require('mongoose');
+const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('cors');
 
 const hotelDataAddedToDBRouter = require("./routes/dataimport.router")
 const categoryDataAddedToDBRouter = require("./routes/categoryimport.router")
@@ -15,6 +16,7 @@ const categoryRouter = require("./routes/category.router")
 
 const connectDB = require("./config/dbconfig");
 
+app.use(cors());
 app.use(express.json());
 connectDB();
 
@@ -23,6 +25,10 @@ const PORT = 3500;
 app.get("/", (req, res) => {
     res.send("Hello Shiva")
 })
+
+app.get("/api", (req, res) => {
+    res.send("API Home");
+});
 
 app.use("/api/hoteldata", hotelDataAddedToDBRouter)
 app.use("/api/categorydata", categoryDataAddedToDBRouter)
